@@ -47,29 +47,33 @@ PORT = 8050
 
 ## Server
 
-class Server(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
+def main():
+    class Server(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
 
-        page_render = f"<html><head><title>HR Dashboard</title><style>{Stylesheet}</style></head><body>"
-        page_render += f"{Prepends.RenderHeader()}"
-        response_code = 200
-        if self.path == '/':
-            page_render += f"{Home.Render(WorkerTable.RenderWorkerTable())}"
-        elif self.path == '/contact-us':
-            page_render += f"{ContactUs.RenderPage()}"
-        elif self.path == '/report-issue':
-            page_render += f"{ReportIssue.RenderPage()}"
-        else:
-            response_code = 404
-            page_render +=  f"{PageNotFound.Render(self.path)}"
-        page_render += "</body></html>"
-        self.send_response(response_code)
-        self.send_header("content-type", "text/html; charset=utf-8")
-        self.end_headers()
-        self.wfile.write(bytes(page_render, "utf-8"))
-        self.close_connection()
-        return
-        
+            page_render = f"<html><head><title>HR Dashboard</title><style>{Stylesheet}</style></head><body>"
+            page_render += f"{Prepends.RenderHeader()}"
+            response_code = 200
+            if self.path == '/':
+                page_render += f"{Home.Render(WorkerTable.RenderWorkerTable())}"
+            elif self.path == '/contact-us':
+                page_render += f"{ContactUs.RenderPage()}"
+            elif self.path == '/report-issue':
+                page_render += f"{ReportIssue.RenderPage()}"
+            else:
+                response_code = 404
+                page_render +=  f"{PageNotFound.Render(self.path)}"
+            page_render += "</body></html>"
+            self.send_response(response_code)
+            self.send_header("content-type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(bytes(page_render, "utf-8"))
+            self.close_connection()
+            return
+            
 
-httpd = http.server.HTTPServer(('localhost', PORT), Server)
-httpd.serve_forever()
+    httpd = http.server.HTTPServer(('localhost', PORT), Server)
+    httpd.serve_forever()
+
+if __name__ == "__main__":
+    main()
