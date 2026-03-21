@@ -47,10 +47,8 @@ PORT = 8050
 
 ## Server
 
-def main():
-    class Server(http.server.BaseHTTPRequestHandler):
+class Server(http.server.BaseHTTPRequestHandler):
         def do_GET(self):
-
             page_render = f"<html><head><title>HR Dashboard</title><style>{Stylesheet}</style></head><body>"
             page_render += f"{Prepends.RenderHeader()}"
             response_code = 200
@@ -72,10 +70,5 @@ def main():
             return
             
 
-    httpd = http.server.HTTPServer(('localhost', PORT), Server)
-    httpd.serve_forever()
-
-
-## DEPLOY/START SERVER
-
-app = main()
+app = http.server.HTTPServer(('localhost', PORT), Server)
+app.serve_forever()
