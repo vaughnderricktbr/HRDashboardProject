@@ -47,7 +47,7 @@ PORT = 8050
 
 ## Server
 
-def app():
+def main():
     class Server(http.server.BaseHTTPRequestHandler):
         def do_GET(self):
 
@@ -75,5 +75,7 @@ def app():
     httpd = http.server.HTTPServer(('localhost', PORT), Server)
     httpd.serve_forever()
 
-if __name__ == "__main__":
-    main()
+
+## DEPLOY/START SERVER
+
+app = main()
