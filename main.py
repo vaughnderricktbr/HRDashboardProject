@@ -47,7 +47,7 @@ PORT = 8050
 
 ## Server
 
-def main():
+def app():
     class Server(http.server.BaseHTTPRequestHandler):
         def do_GET(self):
 
