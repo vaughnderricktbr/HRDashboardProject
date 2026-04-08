@@ -47,7 +47,7 @@ PORT = 8050
 
 ## Server
 
-class Server(http.server.BaseHTTPRequestHandler):
+class handler(http.server.BaseHTTPRequestHandler):
         def do_GET(self):
             page_render = f"<html><head><title>HR Dashboard</title><style>{Stylesheet}</style></head><body>"
             page_render += f"{Prepends.RenderHeader()}"
@@ -69,6 +69,3 @@ class Server(http.server.BaseHTTPRequestHandler):
             self.close_connection()
             return
             
-
-app = http.server.HTTPServer(('localhost', PORT), Server)
-app.serve_forever()
